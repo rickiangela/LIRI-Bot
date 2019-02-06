@@ -46,7 +46,19 @@ function concertThis(band) {
 }
 
 function spotifyThisSong(song) {
+    var spotify = new Spotify(keys.spotify);
 
+    if (!song) { var song = 'thank u, next' };
+    spotify.search({ type: 'track', query: song })
+        .then(function(response) {
+            var songs = response.tracks.items;
+            for (var i = 0; i < songs.length; i++) {
+                console.log('Artist(s): ' + songs[i].artists.map(getArtistNames));
+                console.log('Name: ' + songs[i].name);
+                console.log('Preview: ' + songs[i].preview_url);
+                console.log('Album: ' + songs[i].album.name);
+            };
+        });
 }
 
 function movieThis(movie) {
@@ -69,5 +81,15 @@ function movieThis(movie) {
 }
 
 function doWhatItSays() {
-    console.log("This will run 'I Want It That Way'.");
+    fs.readFile('random.txt', 'utf8', function(err, data) {
+        if (err) throw err;
+
+        var dataArr = data.split(',');
+        if (dataArr[0] === '') {
+            console.log("The file does not contain a command.");
+        } else {
+            input(dataArr[0], dataArr[1]);
+        };
+
+    });
 }

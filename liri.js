@@ -8,20 +8,22 @@ var object = process.argv[3];
 // console.log(command);
 // console.log(object);
 
-var spotify = require("node-spotify-api");
+var Spotify = require("node-spotify-api");
 var input = process.argv;
 var request = require("request");
 var fs = require('fs');
 var axios = require("axios");
+var moment = require("moment");
 
 // console.log(keys.spotifyID);
 // console.log(keys.spotifySecret);
 // console.log(keys.ombd);
+// console.log(keys.bandsInTown);
 
 switch (command) {
-    // case "concert-this":
-    // concertThis(object);
-    // break;
+    case "concert-this":
+    concertThis(object);
+    break;
 
     case "spotify-this-song":
     spotifyThisSong(object);
@@ -34,6 +36,10 @@ switch (command) {
     case "do-what-it-says":
     doWhatItSays();
 	break;
+}
+
+function concertThis(band){
+    console.log("You picked the band " + band);
 }
 
 function spotifyThisSong(song) {
